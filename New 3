@@ -1,0 +1,14 @@
+from huggingface_hub.inference_api import InferenceApi
+
+inference = InferenceApi(
+    repo_id="deepset/roberta-base-squad2",
+    token="hf_YOUR_TOKEN"
+)
+
+input_data = {
+    "question": "Where is Hugging Face based?",
+    "context": "Hugging Face is based in Brooklyn, New York with teams in Paris and London."
+}
+
+result = inference(inputs=input_data)
+print(result)
