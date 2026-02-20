@@ -1,0 +1,8 @@
+from huggingface_hub.inference_api import InferenceApi
+
+# token
+inference = InferenceApi(repo_id="bert-base-uncased", token="hf_YOUR_TOKEN")
+
+# mask‑fill type inference
+result = inference(inputs="Machine learning is [MASK].")
+print(result)
