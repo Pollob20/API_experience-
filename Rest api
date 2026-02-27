@@ -1,0 +1,55 @@
+|||write it in termkdir student-api
+cd student-api
+npm init -y
+npm install express
+
+const express = require('express');
+const app = express();
+const PORT = 3000;
+
+app.use(express.json());  |||
+
+
+let students = [
+    { id: 1, name: "Pollob", dept: "CSE" },
+    { id: 2, name: "Sana", dept: "EEE" }
+];
+
+
+app.get('/students', (req, res) => {
+    res.json(students);
+});
+
+
+app.get('/students/:id', (req, res) => {
+    const student = students.find(s => s.id == req.params.id);
+    res.json(student);
+});
+
+app.post('/students', (req, res) => {
+    const newStudent = {
+        id: students.length + 1,
+        name: req.body.name,
+        dept: req.body.dept
+    };
+    students.push(newStudent);
+    res.status(201).json(newStudent);
+});
+
+
+app.put('/students/:id', (req, res) => {
+    const student = students.find(s => s.id == req.params.id);
+    student.name = req.body.name;
+    student.dept = req.body.dept;
+    res.json(student);
+});
+
+
+app.delete('/students/:id', (req, res) => {
+    students = students.filter(s => s.id != req.params.id);
+    res.json({ message: "Deleted successfully" });
+});
+
+app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+});
